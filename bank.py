@@ -44,7 +44,7 @@ def view_transactions():
 def main():
     while True:
         print("\n--- Welcome to the BANK ---")
-        print("1. Check Balance")
+        print("1. Check Account Balance")
         print("2. Deposit Money")
         print("3. Withdraw Money")
         print("4. View Transaction History")
@@ -60,7 +60,7 @@ def main():
         elif choice == '4':
             view_transactions()
         elif choice == '5':
-            print("Goodbye! Thanks for using the BANK.")
+            print("Goodbye! Thanks for using your BANK.")
             break
         else:
             print("Invalid option. Please choose again.")
