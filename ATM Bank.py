@@ -8,72 +8,75 @@ users = {
     "56789012": {"pin": "2233", "balance": 600.0}
     }
 
+# Authenticate user by checking account number and PIN
 def authenticate():
-    print("Welcome to your BANK!")
-    user_id = input("Enter Bank Account No: ")
-    if user_id in users:
-        pin = input("Enter PIN: ")
-        if users[user_id]["pin"] == pin:
-            print(f"Login successful! Welcome to your Bank Account No: {user_id}.")
-            return user_id
+    print("Welcome to Your BANK!")
+    account = input("Enter your Bank Account No: ")
+    if account in users:
+        pin = input("Enter your PIN: ")
+        if users[account]["pin"] == pin:
+            print(f"Login successful! Welcome to your Bank Account No: {account}.")
+            return account
         else:
-            print("Invalid PIN!")
+            print("Invalid PIN! Please try again.")
     else:
-        print("Invalid Bank Account No!")
+        print("Invalid Bank Account No! Please try again.")
     return None
 
-def check_balance(user_id):
-        print(f"Your balance is: £{users[user_id]['balance']:.2f}")
+# Show the users current balance
+def check_balance(account):
+        print(f"Your current balance is: £{users[account]['balance']:.2f}")
 
-def deposit(user_id):
+# Deposit money into the ussers account
+def deposit(account):
     try:
-        amount = float(input("Enter deposit amount: "))
+        amount = float(input("Enter the ammount to deposit: "))
         if amount > 0:
-            users[user_id]['balance'] += amount
-            print(f"Deposited £{amount:.2f}. New balance: £{users[user_id]['balance']:.2f}")
+            users[account]['balance'] += amount
+            print(f"Deposited £{amount:.2f}. New balance: £{users[account]['balance']:.2f}")
         else:
-            print("Amount must be positive!")
+            print("Deposit amount must be positive!")
     except ValueError:
-        print("Invalid input. Please enter a number.")
+        print("Invalid input. Please enter a valid number.")
 
-def withdraw(user_id):
+# Withdraw money from the users account
+def withdraw(account):
     try:
-        amount = float(input("Enter withdrawal amount: "))
-        if amount > users[user_id]['balance']:
+        amount = float(input("Enter the amount to withdraw: "))
+        if amount > users[account]['balance']:
             print("Insufficient funds in your Account!")
         elif amount > 0:
-            users[user_id]['balance'] -= amount
-            print(f"Withdrew £{amount:.2f}. New balance: £{users[user_id]['balance']:.2f}")
+            users[account]['balance'] -= amount
+            print(f"Withdraw £{amount:.2f}. New balance: £{users[account]['balance']:.2f}")
         else:
-            print("Amount must be positive!")
+            print("Withdraw mount must be positive!")
     except ValueError:
-        print("Invalid input. Please enter a number.")
+        print("Invalid input. Please enter a valid number.")
 
 def atm_menu():
-    user_id = authenticate()
-    if not user_id:
+    account = authenticate()
+    if not account:
         return
 
     while True:
         print("\n1. Check Balance\n2. Deposit Money\n3. Withdraw Money\n4. Logout")
         choice = input("Choose an option: ")
         if choice == '1':
-            check_balance(user_id)
+            check_balance(account)
         elif choice == '2':
-            deposit(user_id)
+            deposit(account)
         elif choice == '3':
-            withdraw(user_id)
+            withdraw(account)
         elif choice == '4':
-            print(f"Goodbye from you Bank, Account No: {user_id}!")
+            print(f"Goodbye from your Bank, Account No: {account}! See you next time.")
             break
         else:
-            print("Invalid option. Try again.")
+            print("Invalid option. Please try again.")
 
 # Main Program
-if __name__ == "__main__":
-    while True:
-        atm_menu()
-        exit_prompt = input("Exit BANK? (yes/no): ").lower()
-        if exit_prompt == "yes":
-            print("Thank you for using your Bank. Goodbye!")
-            break
+while True:
+    atm_menu()
+    exit_prompt = input("Do you want to exit the BANK? (yes/no): ").lower()
+    if exit_prompt == "yes":
+     print("Thank you for using your Bank. Goodbye!")
+     break
